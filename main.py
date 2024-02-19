@@ -16,14 +16,13 @@ conn_str = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={user
 try:
     conn = pyodbc.connect(conn_str)
     cursor = conn.cursor()
-# API isteği yapılacak URL
-    for i in range(4376, 4377):
+# You can specify the range of jobs for which data is required in the loop.  The next time the script runs, it should start from this job ID.
+# The best practice is to run this script every day and on the last day the script is run, assign the last job ID to a variable. 
+# This way, the next time it runs, it will continue from the last job ID.
+    for i in range(77, 4377):
         try:
             url = "AWX_URL/api/v2/jobs/"+str(i)+"/"
-   
             auth = (username, password)
- #           print(url)
-   
             # Send API Request
             response = requests.get(url, auth=(username,password))
    
